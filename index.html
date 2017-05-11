@@ -48,28 +48,54 @@
 
         <!-- CONTENEDOR -->
         <div id="wrapper">
-
             <!-- CUERPO DE LA PAGINA -->
             <div id="page">
-                <header><h1>Aplicación de gestión de gimnasio</h1></header>
+                <header id="page-header"><h1>Aplicación de gestión de gimnasio</h1></header>
+                <main id="page-body">
+                    <section id="home">
+                        <header><h2>Bienvenido</h2></header>
+                        <div> Introduzca sus datos si quiere recibir información de nuestro gimnasio</div>
+                    </section>
+                    <section class="flexcontainer"  id="contact">
+                        <header><h2>Formulario de contacto</h2></header>
+                        <div class="flexcontainer">
+                            <form class="flexcontainer" id="contactForm" action="#" method="post">
+                                <div class="flexcontainer">
+                                    <label for="nombre">Nombre</label>
+                                    <input required type="text" name="nombre" id="nombre"/>
+                                    <div class="text-error"></div>
+                                </div>
+                                <div class="flexcontainer">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input required type="text" name="apellidos" id="apellidos"/>
+                                    <div class="text-error"></div>
+
+                                </div>
+                                <div class="flexcontainer">
+                                    <label for="dni">DNI:</label>
+                                    <input required type="text" name="dni" id="dni"/>
+                                    <div class="text-error"></div>
+                                </div>
+                                <div class="flexcontainer">
+                                    <label for="telefono">Telefono:</label>
+                                    <input type="number" name="telefono" id="telefono"/>
+                                    <div class="text-error"></div>
+                                </div>
+                                <div class="flexcontainer">
+                                    <button class="">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </main>
+                <!-- FOOTER -->
+                <footer id="page-footer">
+                    <p>Casa de gominola 2B</p>
+                    <p>Calle de la piruleta</p>
+                    <p>Mundo Mágico</p>
+                </footer>
             </div>
-            <section>
-                <header><h2>Bienvenido</h2></header>
-                <div> Introduzca sus datos si quiere recibir información de nuestro gimnasio</div>
-            </section>
-            <section>
-                <header><h2>Formulario de contacto</h2></header>
-
-            </section>
-            <!-- FOOTER -->
-            <footer id="page-footer">
-                <p>Casa de gominola 2B</p>
-                <p>Calle de la piruleta</p>
-                <p>Mundo Mágico</p>
-            </footer>
         </div>
-
-
 
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
