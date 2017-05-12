@@ -176,7 +176,7 @@ form .flexcontainer:not(:last-child){
     margin-left: 15px;
 }
 form .flexcontainer div.text-error{
-    flex: 1 0 120px;
+    flex: 0 200px;
 }
 form button{
     padding: 8px 16px;

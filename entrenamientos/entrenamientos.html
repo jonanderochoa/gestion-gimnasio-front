@@ -1,10 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Entrenamientos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
+<!-- MENU -->
+<nav>
+    <ul id="menu">
+        <li>
+            <a href="index.html">Principal</a>
+        </li>
+        <li>
+            <a href="#">Usuario ￬</a>
+            <ul class="submenu">
+                <li><a href="usuarios/usuarios.html">Listado Usuarios</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Ejercicio ￬</a>
+            <ul class="submenu">
+                <li><a href="ejercicios/ejercicios.html">Listado Ejercicios</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">Entrenamiento ￬</a>
+            <ul class="submenu">
+                <li><a href="entrenamientos/entrenamientos.html">Listado Entrenamientos</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
 
+<!-- CONTENEDOR -->
+<div id="wrapper">
+    <div id="page">
+        <header id="page-header">
+            <h1>Aplicación de Gestion de Gimnasio</h1>
+        </header>
+        <main id ="page-body">
+            <section id="listadoEntrenamientos">
+                <header><h2>Listado de Entrenamientos</h2></header>
+                <div class="flexcontainer">
+                    <a title="Crear" href="#">Crear uno nuevo</a>
+                    <a title="Borrar" href="#">Borrar Entrenamiento(s)</a>
+                </div>
+                <div class="flexcontainer">
+                    <table id="tablaEntrenamientos" class="rwd-table">
+                        <thead>
+                        <tr>
+                            <th><input type="checkbox" name="borrartodos" id="borrartodos"/></th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>DNI</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="6"></td>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer id="page-footer">
+            <p>Casa de gominola 2B</p>
+            <p>Calle de la piruleta</p>
+            <p>Mundo Mágico</p>
+        </footer>
+    </div>
+</div>
 </body>
 </html>
