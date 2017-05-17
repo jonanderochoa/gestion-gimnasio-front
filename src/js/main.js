@@ -1,17 +1,16 @@
-//codigo, actividad, grupomuscular, maquina, descripcion, activo
-var $ = require("jquery");
-var ejercicios = [
-    {"codigo":1,"actividad":"musculacion","grupomuscular":"pecho","maquina":"dominadas","descripcion":"bla bla bla","activo":"1"},
-    {"codigo":2,"actividad":"cardio","grupomuscular":"completo","maquina":"cinta","descripcion":"correr 20min","activo":"+1"},
-    {"codigo":3,"actividad":"musculacion","grupomuscular":"brazo","maquina":"mancuerna","descripcion":"alterno","activo":"+1"}
-];
 
-$.noConflict();
-jQuery(document).ready(function($) {
+//jquery
+//var $ = require("jquery");
+//jquery en JQuery 6
+import $ from "jquery";
+window.jQuery = window.$ = $;
+//require("bootstrap");
+
+//$.noConflict();
+//$(document).ready(function($) {
     // Code that uses jQuery's $ can follow here.
     $("#contactForm").on("submit",validarFormularioContacto);
     $("#listadoEjercicios div a:last-child").click(borrarVarios);
-
     $("#tablaEjercicios tbody").on("click","td:last-child button:last-child",function(){
         //alert("has pulsado el boton de borrado");
         var codigo = $(this).parents("tr").find("input[type=checkbox]").val();
@@ -98,8 +97,8 @@ jQuery(document).ready(function($) {
 
 
 
-    cargarArrayEjercicios();
-    function cargarArrayEjercicios() {
+    //cargarArrayEjercicios();
+    function cargarArrayEjercicios(ejercicios) {
         //recorrer el array
         if (ejercicios.length > 0) {
             for(var i = 0; i < ejercicios.length; i++) {
@@ -129,7 +128,29 @@ jQuery(document).ready(function($) {
             $("#listadoEjercicios").text("No se han encontrado ejercicios")
         }
     }
-});
+
+    const urlEjercicios = "http://localhost:8080/gestiongimnasio/api/ejercicios"
+    ajax({"url":urlEjercicios,"method":"get"})
+        .then(function (data) {
+            cargarArrayEjercicios(data);
+            //aqui tengo los datos cargados (data)
+            console.log(data);
+            cargarArrayEjercicios(data);
+        })
+        .then(function () {
+            //poner mensaje los datos se han cargado correctamente
+        })
+        .catch(function (jqXHR, textStatus, errorThrown ) {
+            console.log(jqXHR);
+            //gestión de errores del primer metodo.
+        });
+    function ajax(opciones) {
+        return new Promise(function (resolve, reject) {
+            $.ajax(opciones).done(resolve).fail(reject);
+        });
+    }
+
+//});
 function validarActividad(actividad){
     const pattern = new RegExp(/[a-zA-Z]{3,}/);
     return pattern.test(actividad);
