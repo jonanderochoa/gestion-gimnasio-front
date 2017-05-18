@@ -4,7 +4,35 @@
 //jquery en JQuery 6
 import $ from "jquery";
 window.jQuery = window.$ = $;
-//require("bootstrap");
+import * as ejercicio from "./ejercicios";
+require("bootstrap");
+
+var $listadoEjercicios = $("#listadoEjercicios");
+if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
+    //Creamos un nuevo ejercicio
+    var as = new ejercicio.EjercicioService();
+
+    as.getAll()
+        .then(function (data) {
+            //console.log(data);
+            cargarArrayEjercicios(JSON.parse(data));
+        },function(error){ //error
+            console.log(error);
+        }).catch(function () {
+
+    });
+
+    as.getById()
+        .then(function (data) {
+            //console.log(data);
+            cargarArrayEjercicios(JSON.parse(data));
+        },function(error){ //error
+            console.log(error);
+        }).catch(function () {
+
+    });
+}
+
 
 //$.noConflict();
 //$(document).ready(function($) {
@@ -39,8 +67,6 @@ window.jQuery = window.$ = $;
         }else{
             $("tbody input[type=checkbox]").prop("checked",false);
         }
-
-
     });
     function borrarVarios() {
         //recoger los checksboxes marcados
@@ -48,14 +74,10 @@ window.jQuery = window.$ = $;
             var codigo = $(this).val();
             //Llamar al REST
             $(this).parents("tr").remove();
-
-
         });
         //actualizar el nº de ejercicios
         $("tbody tr").length;
-
     }
-
 
     function validarFormularioContacto(){
         //recoger los valores de la vista
@@ -95,8 +117,6 @@ window.jQuery = window.$ = $;
         return false;
     }
 
-
-
     //cargarArrayEjercicios();
     function cargarArrayEjercicios(ejercicios) {
         //recorrer el array
@@ -124,12 +144,12 @@ window.jQuery = window.$ = $;
             }
             $("#tablaEjercicios tfoot td").html("<span class='text-error'>Total ejercicios:"+ejercicios.length,10+"</span>");
         }else{
-            $("#tablaEjercicios").remove();
             $("#listadoEjercicios").text("No se han encontrado ejercicios")
         }
     }
 
-    const urlEjercicios = "http://localhost:8080/gestiongimnasio/api/ejercicios"
+/*
+    const urlEjercicios = "http://localhost:8080/gestiongimnasio/api/ejercicios";
     ajax({"url":urlEjercicios,"method":"get"})
         .then(function (data) {
             cargarArrayEjercicios(data);
@@ -150,7 +170,10 @@ window.jQuery = window.$ = $;
         });
     }
 
-//});
+});
+
+*/
+
 function validarActividad(actividad){
     const pattern = new RegExp(/[a-zA-Z]{3,}/);
     return pattern.test(actividad);

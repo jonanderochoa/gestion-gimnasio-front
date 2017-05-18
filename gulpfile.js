@@ -9,7 +9,7 @@ var uglify = require('gulp-uglify');
 var babelify = require("babelify");
 
 gulp.task('compile-js',function() {
-    return browserify('./src/js/main.js')
+    return browserify(['./src/js/main.js'])
         .transform(babelify,{presets: ["env"]})
         .bundle()
         .pipe(source('all-min.js'))
