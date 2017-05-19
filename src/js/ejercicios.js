@@ -2,6 +2,7 @@
  * API de ejercicio
  * Created by Curso on 17/05/2017.
  */
+"use strict";
 import $ from "jquery";
 window.jQuery = window.$ = $;
 import * as service from "./genericservice";
@@ -22,6 +23,87 @@ export class EjercicioService extends service.GenericService{
     }
 }
 
+//GetById para Crear / Modificar un ejercicio
+export  function rederizarFormulario(codigo = -1){
+    let es = new EjercicioService();
+    let ejercicio = new Ejercicio();
+    let txt ="";
+    return new Promise(function(resolve, reject) {
+        if(codigo > -1){
+            es.getById(codigo)
+                .then(function(ejer){
+                    txt = parseForm(ejer);
+                    resolve(txt);
+                })
+                .catch(function () {
+                    reject("No se han podido acceder a los datos del codigo "+codigo);
+                });
+        }else{
+            txt = parseForm(ejercicio);
+            resolve(txt);
+        }
+    });
+    //rellaner datos en el form
+}
+function parseForm(ejercicio) {
+    let txt="";
+    txt="<form action='#' id='ejercicioForm' method='post'>";
+    txt = "<input type='text' name='nombre'"
+        +" id='nombre' value='"+ejercicio.nombre()+"'>"
+    txt+="</form>";
+    return txt;
+}
+
+//GetAll
+export function renderizar(){
+    //Creamos una variable que contiene un objeto EjercicioService
+    let es = new EjercicioService();
+    //Creamos un ejercicio vacio
+    let ejercicio = new Ejercicio();
+    let txt = "";
+    return new Promise(function(resolve, reject){
+        //Si el codigo existe...
+        if(codigo > -1){
+            //Carga el ejercicio del codigo determinado
+            es.getById(codigo)
+            //El then se ejecuta cuando no hay errores de ejecucion
+                .then(function (ejer) {
+                    txt = parseForm(ejer);
+                    //Devuelve los datos de la promesa
+                    resolve(txt);
+                })
+                .catch(function () {
+                    reject("No se ha podido acceder a los datos del codigo: "+code);
+                });
+        }else{
+            txt = parseForm(ejercicio);
+            resolve(txt);
+        }
+    });
+}
+
+function parseEjercicio(ejercicio) {
+    let codigo = ejercicio.codigo;
+    let actividad = ejercicio.actividad;
+    let grupomuscular = ejercicio.grupomuscular;
+    let maquina = ejercicio.maquina;
+    let descripcion = ejercicio.description;
+    let activo = ejercicio.activo;
+    let htmlEdit ="<button>Editar</button>";
+    let htmlDelete ="<button>Borrar</button>";
+
+    let texto = "<tr>" +
+        "<td><input type='checkbox' value='" + codigo + "'></td>" +
+        "<td>"+actividad+"</td>" +
+        "<td>"+grupomuscular+"</td>" +
+        "<td>"+maquina+"</td>" +
+        "<td>"+descripcion+"</td>" +
+        "<td>"+activo+"</td>" +
+        "<td>"+htmlEdit+htmlDelete+"</td>" +
+        "</tr>";
+
+    return texto;
+}
 export class Ejercicio{
     constructor(){
         this._codigo = -1;
@@ -70,14 +152,6 @@ export class Ejercicio{
     }
 
 }
-
-
-
-
-
-
-
-
 
 /*
 var Ejercicio = function (ejercicioCodigo, actividad, grupomuscular, maquina, descripcion, ejercicioActivo) {
