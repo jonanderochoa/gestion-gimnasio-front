@@ -4,7 +4,7 @@
 //jquery en JQuery 6
 import $ from "jquery";
 window.jQuery = window.$ = $;
-require("bootstrap");
+require("bootstrap"); //Añade la dependencia de bootstrap js
 
 //Importa las entidades
 import * as ejercicio from "./ejercicios";
@@ -27,10 +27,11 @@ if($listadoUsuarios.length){
 
     });
 }
+
 //Si existe listado de ejercicios...
 if($listadoEjercicios.length){
     //Coge el listado de ejercicios
-    let e1 = ejercicio.renderizar();
+    let e1 = ejercicio.renderizar(); //Renderizar devuelve una promesa
     e1.then(function (txt) {
         $listadoEjercicios.find("div.flexcontainer:last-child").append(txt);
     }).catch(function (txt) {
@@ -39,28 +40,16 @@ if($listadoEjercicios.length){
 }
 
 /*
-if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
-    //Creamos un nuevo ejercicio
-    var as = new ejercicio.EjercicioService();
-
-    as.getAll()
+//Antiguo listado de ejercicios
+if($listadoEjercicios.length) {
+    //Coge el listado de ejercicios
+    var es = new ejercicio.EjercicioService();
+    es.getAll()
         .then(function (data) {
-            //console.log(data);
             cargarArrayEjercicios(JSON.parse(data));
-        },function(error){ //error
+        }, function (error) {
             console.log(error);
         }).catch(function () {
-
-    });
-
-    as.getById()
-        .then(function (data) {
-            //console.log(data);
-            cargarArrayEjercicios(JSON.parse(data));
-        },function(error){ //error
-            console.log(error);
-        }).catch(function () {
-
     });
 }
 */
@@ -69,7 +58,7 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
     $contactForm.on("submit",validaciones.validarFormularioContacto);
     $listadoEjercicios.find("div a:last-child").click(borrarVarios);
     //borrar
-    $pagebody.on("click","tbody td:last-child button:last-child", function(){
+    $pagebody.on("click","tbody li:last-child", function(){
         //alert("has pulsado el boton de borrado");
         var codigo = $(this).parents("tr").find("input[type=checkbox]").val();
         //Llamar al REST para Borrar
@@ -79,7 +68,7 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
         $(this).parents("tr").remove();
     });
     //editar
-    $pagebody.on("click","tbody td:last-child button:first-child",function(){
+    $pagebody.on("click","tbody li:first-child",function(){
         //alert("has pulsado el boton de actualizar");
         var codigo = $(this).parents("tr").find("input[type=checkbox]").val();
         //Llamar al REST para el GetById
@@ -99,6 +88,7 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
             $("tbody input[type=checkbox]").prop("checked",false);
         }
     });
+
     function borrarVarios() {
         //recoger los checksboxes marcados de cualquier tabla
         $("table tbody input:checked").each(function () {
@@ -110,6 +100,7 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
         $("tbody tr").length;
     }
 
+/*
     //cargarArrayEjercicios();
     function cargarArrayEjercicios(ejercicios) {
         //recorrer el array
@@ -121,8 +112,15 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
                 var grupomuscular = ejercicios[i].grupomuscular;
                 var maquina = ejercicios[i].maquina;
                 var descripcion = ejercicios[i].descripcion;
-                var htmlEdit ="<button>Editar</button>";
-                var htmlDelete ="<button>Borrar</button>";
+                //var htmlEdit ="<button>Editar</button>";
+                //var htmlDelete ="<button>Borrar</button>";
+                var botones = "<div class='btn-group'>" +
+                    "<button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown'>" +
+                    "Acciones <span class='caret'></span>" +
+                    "</button><ul class='dropdown-menu' role='menu'>" +
+                    "<li><a href='#'>Editar</a></li>" +
+                    "<li><a href='#'>Borrar</a></li>" +
+                    "</div>";
 
                 var texto = "<tr>" +
                     "<td><input type='checkbox' value='" + codigo + "'></td>" +
@@ -130,41 +128,92 @@ if($listadoEjercicios.length){ //Estamos en la pagina de ejercicios
                     "<td>"+grupomuscular+"</td>" +
                     "<td>"+maquina+"</td>" +
                     "<td>"+descripcion+"</td>" +
-                    "<td>"+htmlEdit+htmlDelete+"</td></tr>";
+                    "<td>"+botones+"</td></tr>";
                 //añadir el html correspondiente a la página
                 $("#tablaEjercicios tbody").append(texto);
                 //-->
+
             }
             $("#tablaEjercicios tfoot td").html("<span class='text-error'>Total ejercicios:"+ejercicios.length,10+"</span>");
         }else{
             $("#listadoEjercicios").text("No se han encontrado ejercicios")
         }
+
+
     }
 
-/*
-    const urlEjercicios = "http://localhost:8080/gestiongimnasio/api/ejercicios";
-    ajax({"url":urlEjercicios,"method":"get"})
-        .then(function (data) {
-            cargarArrayEjercicios(data);
-            //aqui tengo los datos cargados (data)
-            console.log(data);
-            cargarArrayEjercicios(data);
-        })
+    //cargarArrayUsuarios();
+    function cargarArrayUsuarios(usuarios) {
+        //recorrer el array
+        if (usuarios.length > 0) {
+            for(var i = 0; i < usuarios.length; i++) {
+                console.log(usuarios[i]);
+                var codigo = usuarios[i].codigo;
+                var nombre = usuarios[i].nombre;
+                var apellidos = usuarios[i].apellidos;
+                var user = usuarios[i].user;
+                var pass = usuarios[i].pass;
+                var email = usuarios[i].email;
+                var activo = usuarios[i].activo;
+                var htmlEdit ="<button>Editar</button>";
+                var htmlDelete ="<button>Borrar</button>";
+
+                var texto = "<tr>" +
+                    "<td><input type='checkbox' value='" + codigo + "'></td>" +
+                    "<td>"+nombre+"</td>" +
+                    "<td>"+apellidos+"</td>" +
+                    "<td>"+user+"</td>" +
+                    "<td>"+pass+"</td>" +
+                    "<td>"+email+"</td>" +
+                    "<td>"+htmlEdit+htmlDelete+"</td></tr>";
+                //añadir el html correspondiente a la página
+                $("#tablaUsuarios tbody").append(texto);
+                //-->
+            }
+            $("#tablaUsuarios tfoot td").html("<span class='text-error'>Total usuarios:"+usuarios.length,10+"</span>");
+        }else{
+            $("#listadoUsuarios").text("No se han encontrado usuarios")
+        }
+    }
+*/
+
+
+//Creamos el evento que crear el objeto al pulsar submit en el formulario
+$("#guardar").on("click", function () {
+    //Parsea lo que obtenemos del formulario a JSON mediante serializeObject()
+    var ejercicioJSON = JSON.stringify($("#formCrearEjercicio").serializeObject());
+    //Guardamos en una constante el objeto resultante de ejecutar el metodo crearEjercicio
+    //de la entidad ejercicio que hemos importado.
+    const nuevoEjercicio = ejercicio.crearEjercicio(ejercicioJSON);
+    nuevoEjercicio
         .then(function () {
-            //poner mensaje los datos se han cargado correctamente
+            //Oculta el formulario
+            $("#myModal").modal("hide");
+            //Borra los campos del formulario
+            $("#myModal")[0].reset();
         })
-        .catch(function (jqXHR, textStatus, errorThrown ) {
-            console.log(jqXHR);
-            //gestión de errores del primer metodo.
-        });
-    function ajax(opciones) {
-        return new Promise(function (resolve, reject) {
-            $.ajax(opciones).done(resolve).fail(reject);
-        });
-    }
-
+        .catch(function (error) {
+            console.log(error);
+        })
 });
 
-*/
+//Creamos esta funcion en el jquery de nuestro proyecto para parsear
+// a JSON de nombre valor {name:value}
+$.fn.serializeObject = function()
+{
+    var obj = {};
+    var array = this.serializeArray();
+    $.each(array, function() {
+        if (obj[this.name] || obj[this.name] == '') {
+            if (!obj[this.name].push) {
+                obj[this.name] = [obj[this.name]];
+            }
+            obj[this.name].push(this.value || '');
+        } else {
+            obj[this.name] = this.value || '';
+        }
+    });
+    return obj;
+};
 
 

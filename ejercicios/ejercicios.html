@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="../src/css/normalize.css">
     <link rel="stylesheet" href="../src/css/main.css">
     <script src="../src/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+
 </head>
 <body>
 <!-- MENU -->
@@ -51,8 +60,11 @@
             <section id="listadoEjercicios">
                 <header><h2>Listado de Ejercicios</h2></header>
                 <div class="flexcontainer">
-                    <a title="Crear" href="#">Crear uno nuevo</a>
-                    <a title="Borrar" href="#">Borrar Ejercicio(s)</a>
+                    <!-- <a title="Crear" href="#">Crear uno nuevo</a> -->
+                    <button type="button" class="btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                        Crear uno nuevo
+                    </button>
+                    <button type=button" class="btn-primary btn-lg" title="Borrar" href="#">Borrar Ejercicio(s)</button>
                 </div>
                 <div class="flexcontainer">
                     <table id="tablaEjercicios" class="rwd-table">
@@ -74,7 +86,6 @@
                             <td colspan="6"></td>
                         </tr>
                         </tfoot>
-
                     </table>
                 </div>
             </section>
@@ -87,6 +98,46 @@
         </footer>
     </div>
 </div>
+<!-- MODAL -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Introduce un nuevo Ejercicio</h4>
+            </div>
+            <div class="modal-body">
+                <p>Ejercicio nuevo</p>
+                <form role="form" id="formCrearEjercicio">
+                    <div class="form-group">
+                        <label for="actividad">Actividad</label>
+                        <input type="text" class="form-control" id="actividad"
+                               placeholder="Introduce una actividad">
+                    </div>
+                    <div class="form-group">
+                        <label for="grupomuscular">Grupo muscular</label>
+                        <input type="text" class="form-control" id="grupomuscular"
+                               placeholder="Introduce tu grupomuscular">
+                    </div>
+                    <div class="form-group">
+                        <label for="maquina">Máquina</label>
+                        <input type="text" class="form-control" id="maquina"
+                               placeholder="Introduce la máquina">
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Contraseña</label>
+                        <input type="text" class="form-control" id="descripcion"
+                               placeholder="descripción">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button id="guardar" type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script src="../dist/js/all-min.js"></script>
 </body>
 </html>
